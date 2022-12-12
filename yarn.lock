@@ -655,7 +655,7 @@
     "cmake-js" "6.1.0"
     "node-addon-api" "3.0.0"
 
-"@nut-tree/libnut-win32@2.3.0":
+"@nut-tree/libnut-win32@^2.3.0", "@nut-tree/libnut-win32@2.3.0":
   "integrity" "sha512-2v9fBVekJn9ktyI2IWmYlLzNqGBdkaSscfqKmT7Kdzshh6nbsqeawRmhFc4IgTOJBSruz7oc6AWAWsRk9OL3FQ=="
   "resolved" "https://registry.npmjs.org/@nut-tree/libnut-win32/-/libnut-win32-2.3.0.tgz"
   "version" "2.3.0"
@@ -1456,6 +1456,13 @@
   "integrity" "sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ=="
   "resolved" "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
   "version" "1.0.2"
+
+"cross-env@^7.0.3":
+  "integrity" "sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw=="
+  "resolved" "https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz"
+  "version" "7.0.3"
+  dependencies:
+    "cross-spawn" "^7.0.1"
 
 "cross-spawn-windows-exe@^1.1.0", "cross-spawn-windows-exe@^1.2.0":
   "integrity" "sha512-mkLtJJcYbDCxEG7Js6eUnUNndWjyUZwJ3H7bErmmtOYU/Zb99DyUkpamuIZE0b3bhmJyZ7D90uS6f+CGxRRjOw=="
