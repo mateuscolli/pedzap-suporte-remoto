@@ -655,7 +655,7 @@
     "cmake-js" "6.1.0"
     "node-addon-api" "3.0.0"
 
-"@nut-tree/libnut-win32@^2.3.0", "@nut-tree/libnut-win32@2.3.0":
+"@nut-tree/libnut-win32@2.3.0":
   "integrity" "sha512-2v9fBVekJn9ktyI2IWmYlLzNqGBdkaSscfqKmT7Kdzshh6nbsqeawRmhFc4IgTOJBSruz7oc6AWAWsRk9OL3FQ=="
   "resolved" "https://registry.npmjs.org/@nut-tree/libnut-win32/-/libnut-win32-2.3.0.tgz"
   "version" "2.3.0"
@@ -3589,6 +3589,11 @@
   "integrity" "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A=="
   "resolved" "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   "version" "2.1.1"
+
+"python-shell@^3.0.1":
+  "integrity" "sha512-TWeotuxe1auhXa5bGRScxnc2J+0r41NBntSa6RYZtMBLtAEsvCboKrEbW6DvASosWQepVkhZZlT3B5Ei766G+Q=="
+  "resolved" "https://registry.npmjs.org/python-shell/-/python-shell-3.0.1.tgz"
+  "version" "3.0.1"
 
 "qs@~6.5.2":
   "integrity" "sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA=="

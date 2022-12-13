@@ -1,7 +1,8 @@
 const { ipcRenderer } = require('electron');
-var $ = require('jquery');
+const path = require('path');
+const $ = require('jquery');
 const { Peer } = require('peerjs');
-const { mouse, straightTo, Point } = require("@nut-tree/nut-js");
+const { PythonShell } = require('python-shell');
 
 const peer = new Peer('gh6ad5f4h6ad5fh46ad5h46d5', { debug: 1 });
 
@@ -27,13 +28,14 @@ peer.on('connection', (conn) => {
 
         if(data[0] == 'mouseCtrl') {
             const mouseData = JSON.parse(data[1]);
+            const mouseEvent = mouseData['mouseEvent'];
+            const mouseWhich = (mouseData['mouseWhich'] == 1 ? 'left' : (mouseData['mouseWhich'] == 2 ? 'middle' : 'right'));
+            const mouseX = mouseData['mouseX'];
+            const mouseY = mouseData['mouseY'];
 
-            let mouseX = Number(mouseData['mouseX']);
-            let mouseY = Number(mouseData['mouseY']);
+            console.log(mouseData);
 
-            const target = new Point(mouseX, mouseY);
-        
-            await mouse.move(straightTo(target));
+            pyShell('mouse', [mouseEvent, mouseWhich, mouseX, mouseY]);
         }
     });
 })
@@ -68,6 +70,20 @@ const getDisplay = async (peerId, conn) => {
         $('#btnAccept').remove();
     });
 };
+
+const pyShell = (input, args) => {
+    const options = {
+        args: args,
+        pythonPath: path.join(__dirname, 'venv/Scripts/python.exe'),
+        scriptPath: path.join(__dirname, 'jobs')
+    }
+
+    PythonShell.run(`${input}.py`, options, (err, results) => {
+        if(err) throw err;
+        console.log('robot.py finished.');
+        console.log('results', results);
+    });
+}
 
 
 // IPC RENDERER
