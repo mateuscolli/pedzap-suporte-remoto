@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain, desktopCapturer, screen } = require('electron');
 const path = require('path');
+const { setCursorPosition } = require('node-cursor');
+const { pressKey, releaseKey } = require('keyboardjs');
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -59,4 +61,19 @@ ipcMain.handle(
 ipcMain.handle(
 	'SCREEN_GET_ALL_DISPLAYS',
 	(event) => screen.getAllDisplays()
+);
+
+ipcMain.handle(
+	'SET_CURSOR_POSITION',
+	(event, x, y) => setCursorPosition({ x: x, y: y })
+);
+
+ipcMain.handle(
+	'KEYBOARD_PRESS_KEY',
+	(event, key) => pressKey(key)
+);
+
+ipcMain.handle(
+	'KEYBOARD_RELEASE_KEY',
+	(event, key) => releaseKey(key)
 );

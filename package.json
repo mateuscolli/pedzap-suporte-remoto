@@ -21,11 +21,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nut-tree/nut-js": "^2.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.6.1",
-    "peerjs": "^1.4.7",
-    "python-shell": "^3.0.1"
+    "keyboardjs": "^2.7.0",
+    "node-cursor": "^1.1.2",
+    "peerjs": "^1.4.7"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
