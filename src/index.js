@@ -1,7 +1,8 @@
-const { app, BrowserWindow, ipcMain, desktopCapturer, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, desktopCapturer, screen,  } = require('electron');
 const path = require('path');
-const { setCursorPosition } = require('node-cursor');
+const { setCursorPosition, sendCursorEvent, cursorEvents } = require('node-cursor');
 const { pressKey, releaseKey } = require('keyboardjs');
+const { moveMouse, mouseToggle, keyToggle } = require('@hurdlegroup/robotjs');
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -19,24 +20,17 @@ const createWindow = () => {
 			contextIsolation: false,
 			enableRemoteModule: true,
 			webSecurity: true,
+      nativeWindowOpen: true
     },
   });
 
-  // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
-  // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
@@ -44,15 +38,11 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
 ipcMain.handle(
 	'DESKTOP_CAPTURER_GET_SOURCES',
 	(event, opts) => desktopCapturer.getSources(opts)
@@ -65,15 +55,46 @@ ipcMain.handle(
 
 ipcMain.handle(
 	'SET_CURSOR_POSITION',
-	(event, x, y) => setCursorPosition({ x: x, y: y })
+	(event, x, y) => 
+    // setCursorPosition({ x: x, y: y })
+    moveMouse(x, y)
+);
+
+ipcMain.handle(
+	'CLICK_MOUSE_DOWN',
+	(event, which, x, y) => {
+    mouseToggle('down', which)
+    // if(which == 'left') which = cursorEvents.LEFT_DOWN;
+    // if(which == 'middle') which = cursorEvents.MIDDLE_DOWN;
+    // if(which == 'right') which = cursorEvents.RIGHT_DOWN;
+
+    // sendCursorEvent({ event: which, x: x, y: y })
+  }
+);
+
+ipcMain.handle(
+	'CLICK_MOUSE_UP',
+	(event, which, x, y) => {
+    mouseToggle('up', which)
+
+    // if(which == 'left') which = cursorEvents.LEFT_UP;
+    // if(which == 'middle') which = cursorEvents.MIDDLE_UP;
+    // if(which == 'right') which = cursorEvents.RIGHT_UP;
+
+    // sendCursorEvent({ event: which, x: x, y: y })
+  }
 );
 
 ipcMain.handle(
 	'KEYBOARD_PRESS_KEY',
-	(event, key) => pressKey(key)
+	(event, key) => 
+    keyToggle(key, 'down')
+    // pressKey(key)
 );
 
 ipcMain.handle(
 	'KEYBOARD_RELEASE_KEY',
-	(event, key) => releaseKey(key)
+	(event, key) => 
+    keyToggle(key, 'up')
+    // releaseKey(key)
 );

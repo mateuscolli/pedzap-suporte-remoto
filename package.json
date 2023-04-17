@@ -1,6 +1,6 @@
 {
-  "name": "pedzap-suporte-remoto",
-  "productName": "pedzap-suporte-remoto",
+  "name": "deeliv-suporte",
+  "productName": "Deeliv Suporte",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/index.js",
@@ -21,6 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@hurdlegroup/robotjs": "^0.10.0",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.6.1",
     "keyboardjs": "^2.7.0",

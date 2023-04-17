@@ -32,12 +32,30 @@ peer.on('connection', (conn) => {
             const mouseX = Math.ceil(mouseData['mouseX']);
             const mouseY = Math.ceil(mouseData['mouseY']);
 
-            inputCtrl.setCursorPosition(mouseX, mouseY);
-            // if(mouseEvent == 'mousedown')
-            //     sendInputEvent({ type: 'mouseDown', x: mouseX, y: mouseY, button: mouseWhich });
 
-            // if(mouseEvent == 'mouseup')
-            //     sendInputEvent({ type: 'mouseUp', x: mouseX, y: mouseY, button: mouseWhich });
+            if(mouseEvent == 'mousemove') {
+                mouseCtrl.setCursorPosition(mouseX, mouseY);
+            }
+
+            if(mouseEvent == 'mousedown') {
+                mouseCtrl.mouseDown(mouseWhich, mouseX, mouseY);
+
+                // mouseCtrl.setCursorPosition(mouseX, mouseY);
+
+                // setTimeout(() => {
+                //     mouseCtrl.mouseDown(mouseWhich, mouseX, mouseY);
+                //     mouseCtrl.mouseUp(mouseWhich, mouseX, mouseY);
+                // }, 1000);
+
+                // setTimeout(() => {
+                //     keyboardCtrl.pressKey('a');
+                //     keyboardCtrl.releaseKey('a');
+                // }, 2000);
+            }
+
+            if(mouseEvent == 'mouseup') {
+                mouseCtrl.mouseUp(mouseWhich, mouseX, mouseY);
+            }
         }
 
         if(data[0] == 'keyboardCtrl') {
@@ -47,12 +65,10 @@ peer.on('connection', (conn) => {
             
             console.log(keyData);
             if(keyEvent == 'keydown')
-                inputCtrl.pressKey(keyCode);
-                // inputCtrl.sendInputEvent({ type: 'keyDown', keyCode: keyCode });
+                keyboardCtrl.pressKey(keyCode);
 
             if(keyEvent == 'keyup')
-                inputCtrl.releaseKey(keyCode);
-                // inputCtrl.sendInputEvent({ type: 'keyUp', keyCode: keyCode });
+                keyboardCtrl.releaseKey(keyCode);
         }
     });
 })
@@ -95,9 +111,13 @@ const desktopCapturer = {
     getAllDisplays: () => ipcRenderer.invoke('SCREEN_GET_ALL_DISPLAYS')
 }
 
-const inputCtrl = {
+const mouseCtrl = {
     setCursorPosition: (x, y) => ipcRenderer.invoke('SET_CURSOR_POSITION', x, y),
+    mouseDown: (which, x, y) => ipcRenderer.invoke('CLICK_MOUSE_DOWN', which, x, y),
+    mouseUp: (which, x, y) => ipcRenderer.invoke('CLICK_MOUSE_UP', which, x, y)
+}
+
+const keyboardCtrl = {
     pressKey: (key) => ipcRenderer.invoke('KEYBOARD_PRESS_KEY', key),
-    releaseKey: (key) => ipcRenderer.invoke('KEYBOARD_RELEASE_KEY', key),
-    // sendInputEvent: (inputEvent) => ipcRenderer.invoke('SEND_INPUT_EVENT', inputEvent)
+    releaseKey: (key) => ipcRenderer.invoke('KEYBOARD_RELEASE_KEY', key)
 }
